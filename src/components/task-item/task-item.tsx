@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, ReactElement } from "react";
 import { BarTask } from "../../types/bar-task";
 import { GanttContentMoveAction } from "../../types/gantt-task-actions";
 import { Bar } from "./bar/bar";
@@ -36,7 +36,7 @@ export const TaskItem: React.FC<TaskItemProps> = props => {
     ...props,
   };
   const textRef = useRef<SVGTextElement>(null);
-  const [taskItem, setTaskItem] = useState<JSX.Element>(<div />);
+  const [taskItem, setTaskItem] = useState<ReactElement>(<div />);
   const [isTextInside, setIsTextInside] = useState(true);
 
   useEffect(() => {
