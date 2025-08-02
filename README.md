@@ -1,22 +1,31 @@
-# gantt-task-react
+# gantt-task-react-19-korean
 
-## Interactive Gantt Chart for React with TypeScript.
+## Interactive Gantt Chart for React with TypeScript - Korean Localization
+
+한국어 지원 및 추가 기능이 포함된 React용 대화형 간트 차트 라이브러리입니다.
 
 ![example](https://user-images.githubusercontent.com/26743903/88215863-f35d5f00-cc64-11ea-81db-e829e6e9b5c8.png)
 
-## [Live Demo](https://matematuk.github.io/gantt-task-react/)
+## ✨ 추가 기능 (Additional Features)
+
+- 🇰🇷 **Korean Date Expressions**: `locale="kor"` 지원으로 한국어 날짜 표현
+- 📊 **Extra Columns**: 커스텀 컬럼 추가 및 렌더링 지원  
+- 🎨 **Weekend Colors**: 주말 컬럼 하이라이트 기능
+- 🎯 **Jira-style Today**: 개선된 Today 표시 (주황색 화살표)
 
 ## Install
 
-```
-npm install gantt-task-react
+```bash
+npm install @gupsa-corp/gantt-task-react-19-korean
+# or
+yarn add @gupsa-corp/gantt-task-react-19-korean
 ```
 
 ## How to use it
 
 ```javascript
-import { Gantt, Task, EventOption, StylingOption, ViewMode, DisplayOption } from 'gantt-task-react';
-import "gantt-task-react/dist/index.css";
+import { Gantt, Task, EventOption, StylingOption, ViewMode, DisplayOption } from '@gupsa-corp/gantt-task-react-19-korean';
+import "@gupsa-corp/gantt-task-react-19-korean/dist/index.css";
 
 let tasks: Task[] = [
     {
