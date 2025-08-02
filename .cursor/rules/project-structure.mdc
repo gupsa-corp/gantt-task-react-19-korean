@@ -1,0 +1,49 @@
+---
+alwaysApply: true
+---
+
+# Gantt Task React 19 Korean - Project Structure Guide
+
+## 📁 Project Overview
+This is a Korean-localized React Gantt Chart library based on MaTeMaTuK/gantt-task-react with additional features.
+
+## 🗂️ Core Directory Structure
+
+### 📦 Main Entry Points
+- [src/index.tsx](mdc:src/index.tsx) - Main library entry point and public API exports
+- [package.json](mdc:package.json) - Package configuration for `gantt-task-react-19-korean`
+- [README.md](mdc:README.md) - Documentation with Korean features
+
+### 🧩 Component Architecture
+- `src/components/` - All React components organized by functionality
+  - `calendar/` - Date/time header components with Korean locale support
+  - `gantt/` - Main Gantt chart container and content
+  - `grid/` - Background grid with weekend color support
+  - `task-item/` - Individual task rendering (bar, milestone, project)
+  - `task-list/` - Left sidebar table with extra columns support
+  - `other/` - Utility components (tooltip, scrollbars, arrows)
+
+### 🔧 Core Logic
+- [src/types/public-types.ts](mdc:src/types/public-types.ts) - All public interfaces and types
+- [src/helpers/date-helper.ts](mdc:src/helpers/date-helper.ts) - Date manipulation with Korean support
+- [src/helpers/bar-helper.ts](mdc:src/helpers/bar-helper.ts) - Task bar calculations
+- [src/helpers/other-helper.ts](mdc:src/helpers/other-helper.ts) - Utility functions
+
+### 🎨 Styling
+- Component-specific CSS modules (`.module.css` files)
+- [src/index.css](mdc:src/index.css) - Global styles exported with package
+
+### 📝 Example Application
+- [example/src/App.tsx](mdc:example/src/App.tsx) - Demo app with all features
+- Shows Korean locale usage, extra columns, weekend colors
+
+## 🌟 Key Features Added
+1. **Korean Date Expressions** - `locale="kor"` support
+2. **Extra Columns** - Customizable table columns with render functions  
+3. **Weekend Colors** - Configurable weekend highlighting
+4. **Jira-style Today** - Enhanced today indicator
+
+## 🔨 Build System
+- Uses `microbundle-crl` for building UMD/ESM bundles
+- TypeScript compilation with `.d.ts` generation
+- CSS bundling for component styles

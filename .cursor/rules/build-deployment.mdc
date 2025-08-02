@@ -1,0 +1,131 @@
+---
+description: Build system and npm deployment guidelines
+---
+
+# Build & Deployment Guide
+
+## 🔨 Build System
+
+### Build Tools
+- **microbundle-crl** - Used for building library bundles
+- **TypeScript** - Type checking and `.d.ts` generation  
+- **CSS Bundling** - Component styles included in build
+
+### Build Commands
+```bash
+# Development build with watch
+npm start
+
+# Production build
+npm run build
+
+# Full test suite (build + lint + unit tests)
+npm test
+```
+
+### Build Output ([dist/](mdc:dist/))
+- `index.js` - CommonJS bundle
+- `index.modern.js` - ES modules bundle  
+- `index.d.ts` - TypeScript definitions
+- `index.css` - Bundled component styles
+- Component-specific `.d.ts` files
+
+## 📦 Package Configuration
+
+### Package Info ([package.json](mdc:package.json))
+```json
+{
+  "name": "gantt-task-react-19-korean",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "module": "dist/index.modern.js",
+  "types": "dist/index.d.ts"
+}
+```
+
+### Repository Structure
+- **Organization**: `gupsa-corp`
+- **Repository**: `gantt-task-react-19-korean`
+- **npm Package**: `gantt-task-react-19-korean` (unscoped)
+
+## 🚀 Deployment Process
+
+### Version Management
+1. **Update version** in [package.json](mdc:package.json)
+2. **Update changelog** or release notes
+3. **Test build** - `npm run build`
+4. **Commit changes** with descriptive message
+
+### npm Publishing
+```bash
+# Ensure logged in to npm
+npm whoami
+
+# Publish to npm (public package)
+npm publish
+
+# For scoped packages (if needed)
+npm publish --access public
+```
+
+### Git Workflow
+```bash
+# Commit changes
+git add .
+git commit -m "chore: bump version to X.Y.Z"
+
+# Push to repository
+git push origin main
+
+# Create release tag (optional)
+git tag vX.Y.Z
+git push origin vX.Y.Z
+```
+
+## 🔍 Pre-Deployment Checklist
+
+### Build Verification
+- [ ] `npm run build` completes without errors
+- [ ] TypeScript compilation successful
+- [ ] All tests pass (`npm test`)
+- [ ] Example app works (`cd example && npm start`)
+
+### Feature Testing
+- [ ] Korean locale works (`locale="kor"`)
+- [ ] Extra columns render correctly
+- [ ] Weekend colors display properly
+- [ ] All ViewModes function properly
+
+### Documentation Updates
+- [ ] [README.md](mdc:README.md) reflects new features
+- [ ] Installation instructions are current
+- [ ] Usage examples are up to date
+- [ ] API documentation matches implementation
+
+## 🏗️ Development Workflow
+
+### Feature Development
+1. **Create feature branch** from `main`
+2. **Implement changes** following coding guidelines
+3. **Test thoroughly** in example app
+4. **Update documentation** as needed
+5. **Create Pull Request** with detailed description
+
+### Integration Steps
+1. **Code review** and approval
+2. **Merge to main** branch
+3. **Version bump** if needed
+4. **Build and test** final package
+5. **Deploy to npm** registry
+
+## 📋 Troubleshooting
+
+### Common Build Issues
+- **TypeScript errors** - Check type definitions in [public-types.ts](mdc:src/types/public-types.ts)
+- **CSS module issues** - Verify import paths and class names
+- **Missing exports** - Update [src/index.tsx](mdc:src/index.tsx) exports
+
+### npm Deployment Issues  
+- **Login required** - Run `npm login` 
+- **Scope not found** - Use unscoped package name
+- **Version conflicts** - Bump version number in package.json

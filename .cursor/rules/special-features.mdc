@@ -1,0 +1,185 @@
+---
+description: Usage guide for special features - Extra Columns, Weekend Colors, and Korean Date Support
+---
+
+# Special Features Usage Guide
+
+## 📊 Extra Columns Feature
+
+### Basic Setup
+```typescript
+import { Gantt, ExtraColumn, DateFormat } from 'gantt-task-react-19-korean';
+
+const extraColumns: ExtraColumn[] = [
+  {
+    key: "status",
+    title: "Status", 
+    width: "120px",
+    render: (task) => (
+      <span className={`status-${task.extraColumns?.status}`}>
+        {task.extraColumns?.status}
+      </span>
+    )
+  },
+  {
+    key: "assignee",
+    title: "Assignee",
+    width: "140px"
+    // No render function = displays raw value
+  }
+];
+```
+
+### Task Data Structure
+```typescript
+const tasks: Task[] = [
+  {
+    id: "1",
+    name: "Task Name",
+    start: new Date(2025, 0, 1),
+    end: new Date(2025, 0, 5),
+    // Extra columns data
+    extraColumns: {
+      status: "in-progress",
+      assignee: "John Doe",
+      priority: "high"
+    }
+  }
+];
+```
+
+### Column Width Configuration
+```typescript
+<Gantt
+  tasks={tasks}
+  extraColumns={extraColumns}
+  nameColumnWidth="200px"    // Task name column
+  fromColumnWidth="130px"    // Start date column  
+  toColumnWidth="130px"      // End date column
+  dateFormat="iso8601"       // "locale" | "iso8601"
+/>
+```
+
+## 🎨 Weekend Colors Feature
+
+### Basic Usage
+```typescript
+<Gantt
+  tasks={tasks}
+  weekendColor="#97979714"  // Semi-transparent gray
+/>
+```
+
+### Color Options
+- `"transparent"` - Disable weekend highlighting (default)
+- `"#97979714"` - Light gray with transparency
+- `"rgba(255, 0, 0, 0.1)"` - Light red overlay
+- Any valid CSS color value
+
+### Weekend Detection
+- **Saturday** = `getDay() === 6`
+- **Sunday** = `getDay() === 0`
+- Automatically highlights these columns across all ViewModes
+
+## 🇰🇷 Korean Date Support
+
+### Activation
+```typescript
+<Gantt
+  tasks={tasks}
+  locale="kor"  // Enables Korean date expressions
+/>
+```
+
+### Date Format Examples
+```typescript
+// ViewMode.Month with Korean locale
+// English: "January, 2024" 
+// Korean:  "2024년 1월"
+
+// ViewMode.Week with Korean locale  
+// English: "W01"
+// Korean:  "1월 1주"
+
+// ViewMode.Day with Korean locale
+// English: "Mon, 1"  
+// Korean:  "1월 1일 (월)"
+```
+
+## 🎯 Jira-style Today Indicator
+
+### Automatic Feature
+- **Enabled by default** when using Korean date support
+- **Orange arrow** (`#fea362`) pointing to current date
+- **SVG-based** design with vertical line and triangle
+- **Works across all ViewModes**
+
+### Visual Structure
+```jsx
+// Automatically rendered by grid-body.tsx
+<svg>
+  <rect fill={todayColor} />        {/* Background */}
+  <rect fill="#fea362" />           {/* Vertical line */}
+  <polygon fill="#fea362" />        {/* Arrow head */}
+</svg>
+```
+
+## 🔧 Combined Usage Example
+
+### Full Feature Integration
+```typescript
+import { Gantt, Task, ExtraColumn } from 'gantt-task-react-19-korean';
+import 'gantt-task-react-19-korean/dist/index.css';
+
+const extraColumns: ExtraColumn[] = [
+  {
+    key: "status",
+    title: "상태",  // Korean column title
+    width: "100px",
+    render: (task) => (
+      <span className={`badge status-${task.extraColumns?.status}`}>
+        {task.extraColumns?.status === "done" ? "완료" : 
+         task.extraColumns?.status === "progress" ? "진행중" : "대기"}
+      </span>
+    )
+  }
+];
+
+const App = () => {
+  return (
+    <Gantt
+      tasks={tasks}
+      locale="kor"                    // Korean dates
+      extraColumns={extraColumns}     // Custom columns
+      weekendColor="#f0f0f0"         // Weekend highlighting
+      nameColumnWidth="200px"        // Column widths
+      fromColumnWidth="120px"
+      toColumnWidth="120px"
+      dateFormat="iso8601"           // Date format
+      viewMode={ViewMode.Week}
+    />
+  );
+};
+```
+
+## 📝 Styling Extra Columns
+
+### CSS Examples
+```css
+/* Status badges */
+.status-badge {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.status-done { background: #d4edda; color: #155724; }
+.status-progress { background: #fff3cd; color: #856404; }
+.status-pending { background: #f8d7da; color: #721c24; }
+
+/* Priority indicators */
+.priority-high { color: #dc3545; font-weight: bold; }
+.priority-medium { color: #ffc107; }
+.priority-low { color: #28a745; }
+```

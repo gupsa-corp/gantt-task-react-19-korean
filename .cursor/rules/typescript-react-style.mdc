@@ -1,0 +1,72 @@
+---
+globs: *.ts,*.tsx
+---
+
+# TypeScript & React Coding Style Guide
+
+## 📐 Code Formatting
+- **Always use semicolons** at the end of statements
+- Use **double quotes** for strings consistently
+- Prefer **arrow functions** for component definitions
+- Use **const assertions** for immutable objects
+
+## 🏗️ Component Structure
+```typescript
+// ✅ Preferred React component pattern
+export const ComponentName: React.FC<ComponentProps> = ({
+  prop1,
+  prop2,
+  ...otherProps
+}) => {
+  // Component logic here
+  return (
+    <div>
+      {/* JSX content */}
+    </div>
+  );
+};
+```
+
+## 🔍 Type Definitions
+- **Always define interfaces** for component props
+- Use **descriptive names** for types (e.g., `TaskItemProps`, `CalendarProps`)
+- Place types in [src/types/public-types.ts](mdc:src/types/public-types.ts) for public APIs
+- Use **optional properties** with `?` when appropriate
+
+## 📦 Import Organization
+```typescript
+// 1. React and external libraries
+import React, { ReactElement } from "react";
+
+// 2. Internal types and interfaces  
+import { Task, ViewMode } from "../../types/public-types";
+
+// 3. Internal utilities and helpers
+import { getLocaleMonth } from "../../helpers/date-helper";
+
+// 4. Styles (always last)
+import styles from "./component.module.css";
+```
+
+## 🎯 Korean Locale Support
+- When adding Korean support, use `locale === "kor"` checks
+- Provide fallback to English for unsupported locales
+- Use ternary operators for locale-based rendering:
+```typescript
+const displayText = locale === "kor" 
+  ? `${year}년 ${month}월` 
+  : `${month}, ${year}`;
+```
+
+## 🧩 Props Destructuring
+- **Destructure props** in function parameters when possible
+- Use **default values** for optional props:
+```typescript
+export const Component: React.FC<Props> = ({
+  required,
+  optional = "defaultValue",
+  ...rest
+}) => {
+  // Component implementation
+};
+```

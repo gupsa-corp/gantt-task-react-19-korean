@@ -1,6 +1,6 @@
 {
   "name": "@jeonghan/gantt-task-react-19-korean",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Interactive Gantt Chart for React with TypeScript - Korean localization support with extra columns and weekend colors.",
   "author": "jeonghan",
   "homepage": "https://github.com/yunjeonghan/gantt-task-react-19-korean",

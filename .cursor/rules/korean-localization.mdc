@@ -1,0 +1,102 @@
+---
+description: Guidelines for Korean localization features and date expressions
+---
+
+# Korean Localization Guide (한국어 지원 가이드)
+
+## 🇰🇷 Korean Locale Support
+
+### Activation
+Use `locale="kor"` prop to enable Korean date expressions:
+```typescript
+<Gantt 
+  tasks={tasks}
+  locale="kor"  // Enables Korean date formatting
+  viewMode={ViewMode.Week}
+/>
+```
+
+## 📅 Korean Date Format Patterns
+
+### ViewMode-Specific Formats
+| ViewMode | English | Korean (`locale="kor"`) |
+|----------|---------|-------------------------|
+| **Year** | `2024` | `2024` (same) |
+| **Month** | `January, 2024` | `2024년 1월` |
+| **Week** | `W01` | `1월 1주` |
+| **Day** | `Mon, 1` | `1월 1일 (월)` |
+| **Hour** | `Mon, 1 January` | `1월 1일 (월)` |
+
+### Implementation Pattern
+```typescript
+// ✅ Correct Korean date formatting
+const getKoreanDateText = (date: Date, locale: string) => {
+  if (locale === "kor") {
+    return `${date.getFullYear()}년 ${getLocaleMonth(date, locale)}`;
+  }
+  return `${getLocaleMonth(date, locale)}, ${date.getFullYear()}`;
+};
+```
+
+## 🔧 Helper Functions
+
+### Date Helpers ([date-helper.ts](mdc:src/helpers/date-helper.ts))
+- `getWeekOfMonth(date)` - Returns week number within month (Korean style)
+- `getLocaleMonth(date, locale)` - Month names in specified locale
+- `getLocalDayOfWeek(date, locale, format)` - Day names with Korean support
+
+### Korean Week Calculation
+```typescript
+// Uses getWeekOfMonth instead of getWeekNumberISO8601 for Korean format
+const bottomValue = locale === "kor"
+  ? `${getLocaleMonth(date, locale)} ${getWeekOfMonth(date)}주`
+  : `W${getWeekOfMonth(date)}`;
+```
+
+## 🎨 Calendar Component Korean Integration
+
+### Calendar Implementation ([calendar.tsx](mdc:src/components/calendar/calendar.tsx))
+All ViewMode functions support Korean formatting:
+
+```typescript
+// Example from getCalendarValuesForWeek
+if (locale === "kor") {
+  topValue = `${date.getFullYear()}년 ${getLocaleMonth(date, locale)}`;
+} else {
+  topValue = `${getLocaleMonth(date, locale)}, ${date.getFullYear()}`;
+}
+```
+
+### Visual Enhancements
+Korean implementation includes:
+- **Divider lines** between calendar segments
+- **Center-aligned text** for better readability
+- **Consistent spacing** for Korean characters
+
+## 🏷️ Component Modifications for Korean
+
+### Task Item Text ([task-item.tsx](mdc:src/components/task-item/task-item.tsx))
+- Set `fontSize={12}` for better Korean text readability
+
+### Tooltip Formatting ([tooltip.tsx](mdc:src/components/other/tooltip.tsx))
+- Improved date display: `YYYY-MM-DD ~ YYYY-MM-DD` format
+- Separated task name and date information
+
+### Project Bar Styling ([project.tsx](mdc:src/components/task-item/project/project.tsx))
+- Simplified design without triangular decorations
+- Clean rectangular bars for better Korean text display
+
+## ⚠️ Compatibility Notes
+
+### Fallback Behavior
+Always provide English fallback:
+```typescript
+const displayText = locale === "kor" 
+  ? koreanFormat 
+  : englishFormat; // Always have fallback
+```
+
+### Testing Korean Features
+- Test with `locale="kor"` in [example app](mdc:example/src/App.tsx)
+- Verify all ViewMode transitions work correctly
+- Check text alignment and spacing with Korean characters

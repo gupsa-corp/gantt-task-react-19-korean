@@ -1,0 +1,91 @@
+---
+description: Guidelines for developing and modifying Gantt chart components
+---
+
+# Component Development Guide
+
+## 🎯 Component Architecture Patterns
+
+### 📊 Task Item Components
+When working with task items ([src/components/task-item/](mdc:src/components/task-item/)):
+- **Bar components** handle regular tasks with progress bars
+- **Milestone components** render diamond-shaped milestones  
+- **Project components** display project-level tasks (simplified design)
+- All task items receive `TaskItemProps` interface
+
+### 📅 Calendar Components
+For calendar/header components ([src/components/calendar/](mdc:src/components/calendar/)):
+- Support multiple `ViewMode` values (Year, Month, Week, Day, Hour, etc.)
+- **Korean locale support** must be added to all new date displays
+- Use `getLocaleMonth()`, `getLocalDayOfWeek()` helpers from [date-helper.ts](mdc:src/helpers/date-helper.ts)
+
+### 🗂️ Task List Components  
+When modifying task list ([src/components/task-list/](mdc:src/components/task-list/)):
+- **Extra columns support** - check [task-list-table.tsx](mdc:src/components/task-list/task-list-table.tsx) for examples
+- Use `ExtraColumn[]` prop for custom column definitions
+- Support `render` functions for custom column content
+- Respect column width props (`nameColumnWidth`, `fromColumnWidth`, etc.)
+
+## 🎨 Styling Guidelines
+
+### CSS Modules
+- Use **CSS Modules** (`.module.css`) for component-specific styles
+- Import as `styles` object: `import styles from "./component.module.css"`
+- Apply classes: `className={styles.componentClass}`
+
+### SVG Components
+- For complex graphics (arrows, task bars), use **inline SVG**
+- Support RTL layouts when applicable
+- Use consistent colors and sizing
+
+## 🔧 Props Interface Design
+
+### Standard Props Pattern
+```typescript
+export interface ComponentProps {
+  // Required props first
+  tasks: Task[];
+  viewMode: ViewMode;
+  
+  // Optional configuration
+  locale?: string;
+  rtl?: boolean;
+  
+  // Event handlers
+  onDateChange?: (task: Task) => void;
+  onSelect?: (task: Task, isSelected: boolean) => void;
+  
+  // Styling options
+  className?: string;
+  style?: React.CSSProperties;
+}
+```
+
+### Korean Feature Props
+Always include Korean-specific props when relevant:
+```typescript
+interface CalendarProps {
+  locale: string; // Support "kor" for Korean
+  // ... other props
+}
+```
+
+## 🌟 Feature Integration
+
+### Adding New Features
+1. **Update types** in [public-types.ts](mdc:src/types/public-types.ts)
+2. **Modify main Gantt component** to accept new props
+3. **Pass props down** through component hierarchy
+4. **Add examples** in [example/src/App.tsx](mdc:example/src/App.tsx)
+5. **Update documentation** in README.md
+
+### Korean Locale Integration
+When adding text displays:
+```typescript
+const getDisplayText = (date: Date, locale: string) => {
+  if (locale === "kor") {
+    return `${date.getFullYear()}년 ${getLocaleMonth(date, locale)}`;
+  }
+  return `${getLocaleMonth(date, locale)}, ${date.getFullYear()}`;
+};
+```
