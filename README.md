@@ -16,16 +16,16 @@
 ## Install
 
 ```bash
-npm install @gupsa-corp/gantt-task-react-19-korean
+npm install gantt-task-react-19-korean
 # or
-yarn add @gupsa-corp/gantt-task-react-19-korean
+yarn add gantt-task-react-19-korean
 ```
 
 ## How to use it
 
 ```javascript
-import { Gantt, Task, EventOption, StylingOption, ViewMode, DisplayOption } from '@gupsa-corp/gantt-task-react-19-korean';
-import "@gupsa-corp/gantt-task-react-19-korean/dist/index.css";
+import { Gantt, Task, EventOption, StylingOption, ViewMode, DisplayOption } from 'gantt-task-react-19-korean';
+import "gantt-task-react-19-korean/dist/index.css";
 
 let tasks: Task[] = [
     {
