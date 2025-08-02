@@ -113,6 +113,7 @@ npm start
 | arrowColor                 | string | Specifies the relationship arrow fill color.                                                   |
 | arrowIndent                | number | Specifies the relationship arrow right indent. Sets in px                                      |
 | todayColor                 | string | Specifies the current period column fill color.                                                |
+| weekendColor               | string | Specifies the weekend columns fill color.                                                      |
 | TooltipContent             |        | Specifies the Tooltip view for selected taskbar.                                               |
 | TaskListHeader             |        | Specifies the task list Header view                                                            |
 | TaskListTable              |        | Specifies the task list Table view                                                             |
