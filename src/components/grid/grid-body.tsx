@@ -77,11 +77,11 @@ export const GridBody: React.FC<GridBodyProps> = ({
       />
     );
 
-    if (weekendColor !== "transparent" && dates[i + 1] && [0, 6].includes(dates[i + 1].getDay())) {
+    if (weekendColor !== "transparent" && [0, 6].includes(date.getDay())) {
       weekends.push(
         <rect
-          key={"WeekendColumn" + i}
-          x={tickX + columnWidth}
+          key={"WeekendColumn" + date.getTime()}
+          x={tickX}
           y={0}
           width={columnWidth}
           height={y}
