@@ -124,10 +124,9 @@ export const StandardTooltipContent: React.FC<{
   return (
     <div className={styles.tooltipDefaultContainer} style={style}>
       <b style={{ fontSize: fontSize + 6 }}>{`${task.name}`}</b>
-      <p></p>
       <p
         className={styles.tooltipDefaultContainerParagraph}
-        style={{ marginTop: 4 }}
+        style={{ marginTop: 12 }}
       >
         {`date : ${task.start.getFullYear()}-${
           task.start.getMonth() + 1

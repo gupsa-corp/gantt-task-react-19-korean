@@ -3,6 +3,8 @@ import { Task } from "../../types/public-types";
 import { addToDate } from "../../helpers/date-helper";
 import styles from "./grid.module.css";
 
+const TODAY_ARROW_COLOR = "#fea362";
+
 export type GridBodyProps = {
   tasks: Task[];
   dates: Date[];
@@ -88,7 +90,7 @@ export const GridBody: React.FC<GridBodyProps> = ({
         ).getTime() >= now.getTime())
     ) {
       today = (
-        <svg z={1000}>
+        <svg>
           {/* 사각형 (배경) */}
           <rect
             x={tickX}
@@ -105,8 +107,8 @@ export const GridBody: React.FC<GridBodyProps> = ({
             width={1}
             height={y - 5}
             style={{
-              fill: "#fea362",
-              stroke: "#fea362",
+              fill: TODAY_ARROW_COLOR,
+              stroke: TODAY_ARROW_COLOR,
               strokeWidth: 1,
             }}
           />
@@ -117,8 +119,8 @@ export const GridBody: React.FC<GridBodyProps> = ({
               tickX + columnWidth / 2 + 5
             },0  ${tickX + columnWidth / 2},5    `}
             style={{
-              fill: "#fea362",
-              stroke: "#fea362",
+              fill: TODAY_ARROW_COLOR,
+              stroke: TODAY_ARROW_COLOR,
               strokeWidth: 1,
             }}
           />
