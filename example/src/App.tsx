@@ -78,6 +78,7 @@ const App = () => {
       <Gantt
         tasks={tasks}
         viewMode={view}
+        locale="kor"
         onDateChange={handleTaskChange}
         onDelete={handleTaskDelete}
         onProgressChange={handleProgressChange}
@@ -93,6 +94,7 @@ const App = () => {
       <Gantt
         tasks={tasks}
         viewMode={view}
+        locale="kor"
         onDateChange={handleTaskChange}
         onDelete={handleTaskDelete}
         onProgressChange={handleProgressChange}
