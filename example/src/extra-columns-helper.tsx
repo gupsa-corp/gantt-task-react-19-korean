@@ -1,5 +1,5 @@
 import React from "react";
-import { Task, ExtraColumn } from "../../dist/types/public-types";
+import { Task, ExtraColumn } from "../../src/types/public-types";
 
 export function initTasksWithExtraColumns() {
   const currentDate = new Date();
