@@ -3,6 +3,8 @@ import { Task } from "../../types/public-types";
 import { addToDate } from "../../helpers/date-helper";
 import styles from "./grid.module.css";
 
+const TODAY_ARROW_COLOR = "#fea362";
+
 export type GridBodyProps = {
   tasks: Task[];
   dates: Date[];
@@ -10,6 +12,7 @@ export type GridBodyProps = {
   rowHeight: number;
   columnWidth: number;
   todayColor: string;
+  weekendColor: string;
   rtl: boolean;
 };
 export const GridBody: React.FC<GridBodyProps> = ({
@@ -19,6 +22,7 @@ export const GridBody: React.FC<GridBodyProps> = ({
   svgWidth,
   columnWidth,
   todayColor,
+  weekendColor,
   rtl,
 }) => {
   let y = 0;
@@ -60,6 +64,7 @@ export const GridBody: React.FC<GridBodyProps> = ({
   const now = new Date();
   let tickX = 0;
   const ticks: ReactElement[] = [];
+  const weekends: ReactElement[] = [];
   let today: ReactElement = <rect />;
   for (let i = 0; i < dates.length; i++) {
     const date = dates[i];
@@ -73,6 +78,19 @@ export const GridBody: React.FC<GridBodyProps> = ({
         className={styles.gridTick}
       />
     );
+
+    if (weekendColor !== "transparent" && [0, 6].includes(date.getDay())) {
+      weekends.push(
+        <rect
+          key={"WeekendColumn" + date.getTime()}
+          x={tickX}
+          y={0}
+          width={columnWidth}
+          height={y}
+          fill={weekendColor}
+        />
+      );
+    }
     if (
       (i + 1 !== dates.length &&
         date.getTime() < now.getTime() &&
@@ -88,13 +106,41 @@ export const GridBody: React.FC<GridBodyProps> = ({
         ).getTime() >= now.getTime())
     ) {
       today = (
-        <rect
-          x={tickX}
-          y={0}
-          width={columnWidth}
-          height={y}
-          fill={todayColor}
-        />
+        <svg>
+          {/* 사각형 (배경) */}
+          <rect
+            x={tickX}
+            y={0}
+            width={columnWidth}
+            height={y}
+            fill={todayColor}
+          />
+
+          {/* 중앙 세로선 */}
+          <rect
+            x={tickX + columnWidth / 2 - 0.5}
+            y={5}
+            width={1}
+            height={y - 5}
+            style={{
+              fill: TODAY_ARROW_COLOR,
+              stroke: TODAY_ARROW_COLOR,
+              strokeWidth: 1,
+            }}
+          />
+
+          {/* 세로로 긴 역삼각형 화살표 머리 */}
+          <polygon
+            points={`${tickX + columnWidth / 2 - 5},0  ${
+              tickX + columnWidth / 2 + 5
+            },0  ${tickX + columnWidth / 2},5    `}
+            style={{
+              fill: TODAY_ARROW_COLOR,
+              stroke: TODAY_ARROW_COLOR,
+              strokeWidth: 1,
+            }}
+          />
+        </svg>
       );
     }
     // rtl for today
@@ -121,6 +167,7 @@ export const GridBody: React.FC<GridBodyProps> = ({
       <g className="rows">{gridRows}</g>
       <g className="rowLines">{rowLines}</g>
       <g className="ticks">{ticks}</g>
+      <g className="weekends">{weekends}</g>
       <g className="today">{today}</g>
     </g>
   );

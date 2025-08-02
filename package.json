@@ -1,7 +1,7 @@
 {
   "name": "@jeonghan/gantt-task-react-19-korean",
   "version": "1.1.0",
-  "description": "Interactive Gantt Chart for React with TypeScript - Korean Version.",
+  "description": "Interactive Gantt Chart for React with TypeScript - Korean localization support with extra columns and weekend colors.",
   "author": "jeonghan",
   "homepage": "https://github.com/yunjeonghan/gantt-task-react-19-korean",
   "license": "MIT",
@@ -27,7 +27,10 @@
     "react-gantt",
     "task",
     "korean",
-    "한국어"
+    "한국어",
+    "localization",
+    "i18n",
+    "gupsa-corp"
   ],
   "scripts": {
     "build": "microbundle-crl --no-compress --format modern,cjs",
