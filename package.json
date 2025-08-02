@@ -1,13 +1,13 @@
 {
-  "name": "@rsagiev/gantt-task-react-19",
-  "version": "0.3.9",
-  "description": "Interactive Gantt Chart for React with TypeScript.",
-  "author": "MaTeMaTuK <maksym.vikarii@gmail.com>",
-  "homepage": "https://github.com/rsagiev/gantt-task-react-19",
+  "name": "@jeonghan/gantt-task-react-19-korean",
+  "version": "1.1.0",
+  "description": "Interactive Gantt Chart for React with TypeScript - Korean Version.",
+  "author": "jeonghan",
+  "homepage": "https://github.com/yunjeonghan/gantt-task-react-19-korean",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rsagiev/gantt-task-react-19.git"
+    "url": "git+https://github.com/yunjeonghan/gantt-task-react-19-korean.git"
   },
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
@@ -25,7 +25,9 @@
     "gantt-chart",
     "gantt chart",
     "react-gantt",
-    "task"
+    "task",
+    "korean",
+    "한국어"
   ],
   "scripts": {
     "build": "microbundle-crl --no-compress --format modern,cjs",
